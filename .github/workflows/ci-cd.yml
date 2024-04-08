@@ -21,3 +21,4 @@ jobs:
           docker build -t streamlit .
           docker tag streamlit ${{ secrets.DOCKER_USERNAME }}streamlit:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/streamlit:latest
+          
