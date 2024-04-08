@@ -21,6 +21,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t streamlit .
-          docker tag streamlit "${{ secrets.DOCKER_USERNAME }}streamlit:latest"
-          docker push "${{ secrets.DOCKER_USERNAME }}streamlit:latest"
+          docker tag streamlit "${{ secrets.DOCKER_USERNAME }}/streamlit:latest"
+          docker push "${{ secrets.DOCKER_USERNAME }}/streamlit:latest"
           
