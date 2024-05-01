@@ -7,7 +7,7 @@ from aiortc.contrib.media import MediaRecorder
 import datetime
 import threading
 import numpy as np
-from upload import create_conn, read_dictionary_from_npy, upload_file_to_server
+from upload import create_conn, read_dictionary_from_npy, upload_file_to_server, read_all_records
 
 BASE_DIR = os.path.abspath(os.path.join(__file__, '../../'))
 sys.path.append(BASE_DIR)
@@ -73,6 +73,8 @@ def video_frame_callback(frame: av.VideoFrame):
             session_info["end_timestamp"] = datetime.datetime.now()
         session_info['correct'] = states[0]
         session_info['incorrect'] = states[1]
+        print('Correct Cnt: ',states[0]);
+        print('InCorrect Cnt: ',states[1]);
         DATASET[session_info['exercise_selected']] = session_info
         session_info = session_info.copy()  # Make a copy to avoid race conditions
         
@@ -113,10 +115,11 @@ print("end")
 file_path = "dataset.npy"
 dictionary = read_dictionary_from_npy(file_path)
 
-upload_file_to_server(dictionary["Curls"], cursor)
-upload_file_to_server(dictionary["Squats Beginner"], cursor)
-upload_file_to_server(dictionary["Squats Pro"], cursor)
-
+upload_file_to_server(dictionary["Curls"], cursor, connection)
+upload_file_to_server(dictionary["Squats Beginner"], cursor, connection)
+upload_file_to_server(dictionary["Squats Pro"], cursor, connection)
+read_all_records(cursor)
+connection.close()
 
 
 

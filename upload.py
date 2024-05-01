@@ -21,7 +21,7 @@ def create_conn():
     connection = mysql.connector.connect(
         host="127.0.0.1",
         user="root",
-        password="Chs*#@123",
+        password="aditya@11",
         database="exercise",
     )
 
@@ -30,7 +30,7 @@ def create_conn():
     return cursor, connection
 
 
-def upload_file_to_server(dictionary, cursor):
+def upload_file_to_server(dictionary, cursor, connection):
 
     if not dictionary:
         return
@@ -53,8 +53,16 @@ def upload_file_to_server(dictionary, cursor):
         print(e)
 
     # Commit the changes and close the connection
+    connection.commit()
 
+def read_all_records(cursor):
+    select_query = "SELECT * FROM Fitness_Info;"
+    cursor.execute(select_query)
+    records = cursor.fetchall()
+    for record in records:
+        print("FROM DATABASE -> ",record)
 
+'''
 # Example usage
 file_path = "dataset.npy"
 dictionary = read_dictionary_from_npy(file_path)
@@ -67,3 +75,5 @@ upload_file_to_server(dictionary["Squats Pro"], cursor)
 
 connection.commit()
 connection.close()
+
+'''
