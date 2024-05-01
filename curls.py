@@ -565,6 +565,6 @@ class ProcessFrameCurls:
             
 
             
-        return frame, play_sound
+        return frame, play_sound , (self.state_tracker['CURL_COUNT'], self.state_tracker['IMPROPER_CURL'])
 
                     

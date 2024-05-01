@@ -549,6 +549,6 @@ class ProcessFrame:
             
 
             
-        return frame, play_sound
+        return frame, play_sound , (self.state_tracker['SQUAT_COUNT'], self.state_tracker['IMPROPER_SQUAT'])
 
                     
