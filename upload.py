@@ -22,11 +22,30 @@ def create_conn():
         host="127.0.0.1",
         user="root",
         password="aditya@11",
-        database="exercise",
     )
-
     # Create a cursor object to execute SQL queries
     cursor = connection.cursor()
+
+    # Create the database if it doesn't exist
+    cursor.execute("CREATE DATABASE IF NOT EXISTS exercise")
+
+    # Switch to the Exercise database
+    cursor.execute("USE Exercise")
+
+    # Create the Fitness_Info table if it doesn't exist
+    create_table_query = """
+    CREATE TABLE IF NOT EXISTS Fitness_Info (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        Exercise_Name VARCHAR(100) NOT NULL,
+        Correct_Count INT NOT NULL DEFAULT 0,
+        Incorrect_Count INT NOT NULL DEFAULT 0,
+        Start_Time DATETIME NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP(),
+        End_Time DATETIME NOT NULL UNIQUE DEFAULT CURRENT_TIMESTAMP()
+    )
+    """
+    cursor.execute(create_table_query)
+    connection.commit()
+
     return cursor, connection
 
 
